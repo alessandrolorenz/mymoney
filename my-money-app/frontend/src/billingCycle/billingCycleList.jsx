@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-import { getList } from './billingCycleActions'
+import { getList, showUpdate, showDelete } from './billingCycleActions'
 
 class BillingCycleList extends Component {
 
@@ -12,17 +12,27 @@ class BillingCycleList extends Component {
 
     renderRows() {
         const list = this.props.list || []
-        return list.map(bc => ( //retorna um jsx
+        return list.map(bc => ( //retorna um jsx (ira para o render())
             <tr key={bc._id}>
                 <td>{ bc.name }</td>
                 <td>{ bc.month }</td>
                 <td>{ bc.year }</td>
+                <td>
+                    <button className='btn btn-warning' onClick={() => this.props.showUpdate(bc)}>
+                        <i className='fa fa-pencil'></i>
+                    </button>
+                    <button className='btn btn-danger' onClick={() => this.props.showDelete(bc)}>
+                        <i className='fa fa-trash-o'></i>
+                    </button>
+
+                </td>
+               
             </tr>
         ))
     }
 
     render(){
-       // console.log(this.props.list) // chama a primeira vez vasiu e na segunda vez a lista é carregada, pois no index = applyMiddleware(promise)(createStore)(reducers, devTools)- resolve a promisse antes
+       // console.log(this.props.list) // chama a primeira vez vasio e na segunda vez a lista é carregada, pois no index = applyMiddleware(promise)(createStore)(reducers, devTools)- resolve a promisse antes
         return(
             <div>
                 <table className='table'>
@@ -30,7 +40,8 @@ class BillingCycleList extends Component {
                         <tr>
                             <td>Nome</td>
                             <td>Mês</td>
-                            <td>Descrição</td>
+                            <td>Ano</td>
+                            <td>Ações</td>
                         </tr>
                     </thead>
                     <tbody>
@@ -44,5 +55,5 @@ class BillingCycleList extends Component {
 }
 
 const mapStateToProps = state => ({list: state.billingCycle.list})//this.props.list (pode vir vasio neste caso)
-const mapDispatchToProps = dispatch => bindActionCreators({getList}, dispatch) //this.props.getlist()
+const mapDispatchToProps = dispatch => bindActionCreators({getList, showUpdate, showDelete}, dispatch) //this.props.getlist()
 export default connect(mapStateToProps, mapDispatchToProps)( BillingCycleList)
