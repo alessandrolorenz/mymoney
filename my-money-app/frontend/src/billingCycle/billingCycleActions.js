@@ -10,7 +10,7 @@ export function getList() {
     const request = axios.get(`${BASE_URL}/billingCycles`)
     return {
         type: 'BILLING_CYCLE_FETCHED',
-        payload: request
+        payload: request // tem um .data onde esta os dados trazidos (payload.data)
     }
 }
 
@@ -27,6 +27,7 @@ export function remove(values){
     return submit(values, 'delete')
 }
 
+//nao é exportado pois é usado somente aqui
 function submit(values, method){
     return dispatch => { //Nao retorna a action e sim a funcao dispatch
         const id = values._id ? values._id : ''
@@ -52,8 +53,8 @@ function submit(values, method){
 }
 
 export function showUpdate(billingCycle){
-    return [
-        showTabs('tabUpdate'),
+    return [ // multi permite passar um array de actions
+        showTabs('tabUpdate'), // actions de tabActions
         selectTab('tabUpdate'),
         initialize('billingCycleForm', billingCycle)
     ]

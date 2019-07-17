@@ -13,8 +13,8 @@ class BillingCycleForm extends Component {
     calculateSummary(){
         const sum = (t, v) => t + v
         return {
-            sumOfCredits: this.props.credits.map(c => +c.value || 0).reduce(sum),
-            sumOfDebts: this.props.debts.map(d => +d.value || 0).reduce(sum)
+            sumOfCredits: this.props.credits.map(c => +c.value || 0).reduce(sum), //o + converte em numerico senao =0
+            sumOfDebts: this.props.debts.map(d => +d.value || 0).reduce(sum) // tranforma um array de obj em array num e agrega e coloca na variavel
         }
     }
 
@@ -33,7 +33,7 @@ class BillingCycleForm extends Component {
                     <Field name='year' component={ LabelAndInput } readOnly={readOnly}
                         label='Ano' cols='12 4' placeholder='Informe o Ano' />
 
-                    <Summary credit={sumOfCredits} debts={sumOfDebts} />
+                        <Summary credit={sumOfCredits} debts={sumOfDebts} />
                         
                     <ItemList cols='12 6' list ={credits} readOnly={readOnly}
                             field='credits' legend='Créditos'  />
@@ -45,7 +45,7 @@ class BillingCycleForm extends Component {
                         {this.props.submitLabel} {/* javascript puro pos isso os {} */}
                     </button>
                     <button type='button' className='btn btn-default'
-                        onClick={this.props.init}>Cancelar</button>
+                        onClick={this.props.init}>Cancelar</button> {/* funcao da bCAction ligado pelo bindActionCreators */}
                 </div>
             </form>
         )
@@ -54,7 +54,7 @@ class BillingCycleForm extends Component {
 
 
 BillingCycleForm = reduxForm({form: 'billingCycleForm', destroyOnUnmount: false })(BillingCycleForm) // retorna um obj com o form
-const selector = formValueSelector('billingCycleForm')
+const selector = formValueSelector('billingCycleForm') // passa o id do form
 
 const mapStateToProps = state => ({
     credits: selector(state, 'credits'),

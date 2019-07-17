@@ -1,13 +1,13 @@
 const _ = require('lodash')
 
-module.exports = (req, res, next) =>  {
+module.exports = (req, res, next) =>  { // METODO MIDDLEWARE
     const bundle = res.locals.bundle
 
     if(bundle.errors) {
         const errors = parseErrors(bundle.errors)
         res.status(500).json({errors})
     } else {
-        next() //recebe como parametro mas aqui é usada a funcao
+        next() //recebe como parametro mas aqui é usada a funcao // vai pro prox middleware
     }
 }
 

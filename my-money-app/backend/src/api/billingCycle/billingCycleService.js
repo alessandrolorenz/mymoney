@@ -2,7 +2,7 @@ const BillingCycle = require('./billingCycle')
 const errorHandler = require('../common/errorHandler')
 
 BillingCycle.methods(['get', 'post', 'put', 'delete'])
-BillingCycle.updateOptions({new: true, runValidators: true})
+BillingCycle.updateOptions({new: true, runValidators: true}) // com put ele nao usa as valicações, entao muda aqui
 BillingCycle.after('post', errorHandler).after('put', errorHandler)
 
 BillingCycle.route('count', (rep, res, next) => {

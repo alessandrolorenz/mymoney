@@ -1,5 +1,5 @@
 const INITIAL_STATE = {selected: '', visible: {} }
-
+//gerencia as actions como todos os reducers
 export default (state = INITIAL_STATE, action) => {
     switch (action.type) {
         case 'TAB_SELECTED':

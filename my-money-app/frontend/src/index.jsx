@@ -5,9 +5,10 @@ import { Provider } from 'react-redux'
 
 import promise from 'redux-promise'
 import multi from 'redux-multi'
-import thunk from 'redux-thunk'
+import thunk from 'redux-thunk' //ver billingCycleAction
 
-import App from './main/app'
+// import App from './main/app'
+import Routes from './main/routes'
 import reducers from './main/reducers'
 
 const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
@@ -17,7 +18,7 @@ const devTools = window.__REDUX_DEVTOOLS_EXTENSION__
 const store = applyMiddleware(multi, thunk, promise)(createStore)(reducers, devTools) //promise retorna uma func, cujo pram é createStore e isso retorna uma func que o param é o reducer
 ReactDOM.render(
     <Provider store={store}>
-        <App />
+        <Routes />
     </Provider>
             
     , document.getElementById('app'))

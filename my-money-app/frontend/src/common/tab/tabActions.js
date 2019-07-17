@@ -6,7 +6,7 @@ export function selectTab(tabId) {
     }
 }
 
-export function showTabs(... tabIds){//...tabIds operador rest (contrario do spread)
+export function showTabs(... tabIds){//...tabIds operador rest (contrario do spread) Conjunto de ids
     const tabsToShow = {}
     tabIds.forEach(e =>tabsToShow[e] = true) //cria os objetos (nâo é um array [])
     return {

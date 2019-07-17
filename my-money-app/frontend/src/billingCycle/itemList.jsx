@@ -12,13 +12,13 @@ class ItemList extends Component {
     add(index, item = {}){
         if(!this.props.readOnly){
            // console.log(index)
-           this.props.arrayInsert('billingCycleForm', this.props.field, index, item)
+           this.props.arrayInsert('billingCycleForm', this.props.field, index, item) //passar para o bindcA
         }
     }
 
     remove(index){
         if(!this.props.readOnly && this.props.list.length >1) {
-            this.props.arrayRemove('billingCycleForm', this.props.field, index)
+            this.props.arrayRemove('billingCycleForm', this.props.field, index) //passar para o bindcA - mapDTprops
         }
     }
 
@@ -26,14 +26,16 @@ class ItemList extends Component {
             const list = this.props.list || []
             return list.map((item, index)=>(
             <tr key={index}>
-                <td><Field name={`${this.props.field}[${index}].name`} component={Input}
-                placeholder='Informe o nome' readOnly={this.props.readOnly} /></td>
-                <td><Field name={`${this.props.field}[${index}].value`} component={Input}
+                <td><Field name={`${this.props.field}[${index}].name`} component={Input} 
+                placeholder='Informe o nome' readOnly={this.props.readOnly} /></td> 
+                <td><Field name={`${this.props.field}[${index}].value`} component={Input} 
                  placeholder='Informe o valor' readOnly={this.props.readOnly} /></td> 
+
                 <If test={this.props.showStatus}>
                             <td><Field name={`${this.props.field}[${index}].status`} component={Input}
                                     placeholder='Informe o status' readOnly={this.props.readOnly} /></td>
                 </If>
+
                 <td>
                     <button type='button' className='btn btn-success'
                         onClick={() => this.add(index +1)} >
@@ -47,6 +49,7 @@ class ItemList extends Component {
                         onClick={() => this.remove(index)} >
                         <i className='fa fa-trash-o'></i>
                     </button>
+                    
                 </td>
             </tr>
 
