@@ -3,12 +3,12 @@ import ReduxToastr from 'react-redux-toastr'
 import 'modules/react-redux-toastr/lib/css/react-redux-toastr.css'
 
 export default props => (
-    <ReduxToastr
-        timeOut={3000}
-        newestOnTop={true}
+    <ReduxToastr 
+        timeOut={4000}
+        newestOnTop={false}
         preventDuplicates={true}
         position='top-right'
         transitionIn='fadeIn'
-        transitionOut='bounceOut'
+        transitionOut='fadeOut'
         progressBar />
 )

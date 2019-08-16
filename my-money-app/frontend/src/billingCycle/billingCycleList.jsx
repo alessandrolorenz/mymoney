@@ -5,18 +5,17 @@ import { getList, showUpdate, showDelete } from './billingCycleActions'
 
 class BillingCycleList extends Component {
 
-    componentWillMount(){
+    componentWillMount() {
         this.props.getList()
-        // console.log(this.props.list) // assim que chama getList, chama o console.log, mas ainda carrega a lista, poois a chamada é assincrona
     }
 
     renderRows() {
         const list = this.props.list || []
-        return list.map(bc => ( //retorna um jsx (ira para o render())
+        return list.map(bc => (
             <tr key={bc._id}>
-                <td>{ bc.name }</td>
-                <td>{ bc.month }</td>
-                <td>{ bc.year }</td>
+                <td>{bc.name}</td>
+                <td>{bc.month}</td>
+                <td>{bc.year}</td>
                 <td>
                     <button className='btn btn-warning' onClick={() => this.props.showUpdate(bc)}>
                         <i className='fa fa-pencil'></i>
@@ -24,29 +23,25 @@ class BillingCycleList extends Component {
                     <button className='btn btn-danger' onClick={() => this.props.showDelete(bc)}>
                         <i className='fa fa-trash-o'></i>
                     </button>
-
                 </td>
-               
             </tr>
         ))
     }
 
-    render(){
-       // console.log(this.props.list) // chama a primeira vez vasio e na segunda vez a lista é carregada, pois no index = applyMiddleware(promise)(createStore)(reducers, devTools)- resolve a promisse antes
-        return(
+    render() {
+        return (
             <div>
                 <table className='table'>
                     <thead>
                         <tr>
-                            <td>Nome</td>
-                            <td>Mês</td>
-                            <td>Ano</td>
-                            <td className='table-actions'>Ações</td>
+                            <th>Nome</th>
+                            <th>Mês</th>
+                            <th>Ano</th>
+                            <th className='table-actions'>Ações</th>
                         </tr>
                     </thead>
                     <tbody>
-                        {this.renderRows()}{/* this é usado pois é contexto de classe - class BillingCycleList */}
-                        {/* se fosse comp funcional, nao usava o this */}
+                        {this.renderRows()}
                     </tbody>
                 </table>
             </div>
@@ -54,6 +49,6 @@ class BillingCycleList extends Component {
     }
 }
 
-const mapStateToProps = state => ({list: state.billingCycle.list})//this.props.list (pode vir vasio neste caso)
-const mapDispatchToProps = dispatch => bindActionCreators({getList, showUpdate, showDelete}, dispatch) //this.props.getlist()
-export default connect(mapStateToProps, mapDispatchToProps)( BillingCycleList)
+const mapStateToProps = state => ({list: state.billingCycle.list})
+const mapDispatchToProps = dispatch => bindActionCreators({getList, showUpdate, showDelete}, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(BillingCycleList)
