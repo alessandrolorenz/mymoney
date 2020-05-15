@@ -1,24 +1,39 @@
 import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import { init } from './billingCycleActions'
+import labelAndInput from '../common/form/labelAndInput'
+
 
 class BillingCycleForm extends Component {
     render(){
         // depois de decorar o componente com reduxForm fica disponivel: handleSubmit
-        const { handleSubmit } = this.props
-        console.log(handleSubmit)
+        const { handleSubmit, formCols = '12 4' } = this.props
         return(
             <form role='form' onSubmit={handleSubmit}>
                 <div className='box-body'>
-                    <Field name='name' component='input' />
-                    <Field name='month' component='input' />
-                    <Field name='year' component='input' />
+                    <Field name='name' component={labelAndInput} 
+                        label='Nome' cols={formCols} placeholder='Informe o nome'
+                    />
+                    <Field name='month' component={labelAndInput} type='number'
+                        label='Mês' cols={formCols} placeholder='Informe o mês'
+                    />
+                    <Field name='year' component={labelAndInput} type='number'
+                        label='Ano' cols={formCols} placeholder='Informe o ano'
+                    />
                 </div>
                 <div className='box-footer'>
                     <button type='submit' className='btn btn-primary'>Submit</button>
+                    <button type='button' className='btn btn-default'
+                        onClick={this.props.init}>Cancelar</button>
                 </div>
             </form>
         )
     }
-}
+}// o resultado é ele mesmo com o form, dai decora ele de novo com o connect react-redux (duas vezes decorado)
+BillingCycleForm = reduxForm({form: 'billingCycleForm', destroyOnUnmount: false})(BillingCycleForm)
 
-export default reduxForm({form: 'billingCycleForm'})(BillingCycleForm)
+const mapDispatchToProps = dispatch => bindActionCreators({init}, dispatch);
+
+export default connect(null ,mapDispatchToProps)(BillingCycleForm) //null pq não tem o mapstatetoprops
